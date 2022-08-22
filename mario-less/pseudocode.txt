@@ -1,2 +1,5 @@
 Ask user for height
 If height is not an integer 1 through 8, inclusive, go back one step
+Build height using user input
+If i + j is less than n -1 print a blankspace
+else print a hash
