@@ -3,16 +3,17 @@
 
 int main(void)
 {
-    int n;
+     int n;
     do
     {
-        // get user input
         n = get_int("Height: ");
-    } while (n < 1 || n > 8);
-
-    for(int j = 0; j < n; j++)
-    {
-        for (int i = 0; i < n; i++)
-            printf("#\n");
     }
+    while (n < 1 || n > 8);
+
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++)
+    {
+        printf("#");
+    }
+    printf("\n");
 }
