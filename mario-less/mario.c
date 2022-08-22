@@ -24,7 +24,7 @@ int main(void)
             }
             else
             {
-                // add hash
+                // add number of hashes
                 printf("#");
             }
         }
