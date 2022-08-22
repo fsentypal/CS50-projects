@@ -1,4 +1,4 @@
 Ask user for height
 If height is not an integer 1 through 8, inclusive, go back one step
 Iterate from 1 through height:
-    On iteration i, print i hashes and then a newline
+    On iteration i, print i number of "#" and then a new line
