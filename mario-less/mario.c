@@ -6,6 +6,7 @@ int main(void)
     int n;
     do
     {
+        // get user input
         n = get_int("Height: ");
 
     }
@@ -17,15 +18,16 @@ int main(void)
         {
             if (i + j < n - 1)
 
-
+            {
+                // add blankspace
                 printf(" ");
-
-
+            }
             else
-
+            {
+                // add hash
                 printf("#");
+            }
         }
-
-    printf("\n");
+        printf("\n");
     }
 }
