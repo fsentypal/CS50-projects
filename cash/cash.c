@@ -40,6 +40,7 @@ int get_cents(void)
     int cents;
     do
     {
+        // Promt user for the amount owed
         cents = get_int("Amount Owed: ");
     }
     while (cents < 0);
@@ -48,6 +49,7 @@ int get_cents(void)
 
 int calculate_quarters(int cents)
 {
+    // Calculate how many quarters fit into the equation
     int quarters = 0;
     while (cents >= 25)
     {
@@ -59,6 +61,7 @@ int calculate_quarters(int cents)
 
 int calculate_dimes(int cents)
 {
+    // Calculate how many dimes fit into the equation
     int dimes = 0;
     while (cents >= 10)
     {
@@ -70,6 +73,7 @@ int calculate_dimes(int cents)
 
 int calculate_nickels(int cents)
 {
+    // Calculate how many nickels fit into the equation
     int nickels = 0;
     while (cents >= 5)
     {
@@ -81,6 +85,7 @@ int calculate_nickels(int cents)
 
 int calculate_pennies(int cents)
 {
+    // Calculate how many pennies fit into the equation
     int pennies = 0;
     while (cents >= 1)
     {
