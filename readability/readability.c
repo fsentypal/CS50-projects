@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
+#include <ctype.h>
 
 int main(void)
 {
@@ -13,7 +14,7 @@ int main(void)
 
    for (int i = 0; i < strlen(text); i++)
    {
-       if ((text[i] > 65 && text[i] < 90) || (text[i] > 97 && text[i] < 122))
+       if (isalpha(text[i]))
        {
            letters++;
        }
@@ -28,7 +29,7 @@ int main(void)
            sentences++;
        }
    }
-   
+
    float L = (float) letters / (float) words * 100;
    float S = (float) sentences / (float) words * 100;
 
