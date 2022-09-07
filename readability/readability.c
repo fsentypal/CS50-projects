@@ -10,9 +10,9 @@ int main(void)
    string text = get_string("Text: ");
 
     //Set counter
-    intletters = 0;
+    int letters = 0;
    int words = 1;
-    intsentences = 0;
+    int sentences = 0;
 
    for (int i = 0; i < strlen(text); i++)
    {
