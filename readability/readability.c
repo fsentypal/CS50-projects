@@ -1,6 +1,7 @@
 #include <cs50.h>
 #include <stdio.h>
 #include <string.h>
+#include <math.h>
 
 int main(void)
 {
@@ -29,7 +30,7 @@ int main(void)
     }
     float L = letters / words * 100
     float S = sentences / words * 100
-    
-    int index = 0.0588 * L - 0.296 * S - 15.8;
+
+    int index = round (0.0588 * L - 0.296 * S - 15.8);
 
 }
