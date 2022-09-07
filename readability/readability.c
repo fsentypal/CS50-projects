@@ -32,5 +32,19 @@ int main(void)
     float S = (float) sentences / (float) words * 100
 
     int index = round (0.0588 * L - 0.296 * S - 15.8);
-    
+
+    if (index < 1)
+    {
+        printf("Before Grade 1");
+    }
+
+    else if (index > 16)
+    {
+        printf("Grade 16+");
+    }
+
+    else
+    {
+        printf("Grade %i", index);
+    }
 }
