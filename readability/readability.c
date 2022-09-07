@@ -8,7 +8,7 @@ int main(void)
    string text = get_string("Text: ");
 
    int letters = 0;
-   int words = 0;
+   int words = 1;
    int sentences = 0;
 
    for (int i = 0; i < strlen(text); i++)
@@ -28,6 +28,7 @@ int main(void)
            sentences++;
        }
    }
+   
    float L = (float) letters / (float) words * 100;
    float S = (float) sentences / (float) words * 100;
 
