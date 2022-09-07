@@ -33,7 +33,7 @@ int main(void)
        }
    }
 
-    //
+    //Define L and S according to given formula
    float L = (float) letters / (float) words * 100;
    float S = (float) sentences / (float) words * 100;
 
