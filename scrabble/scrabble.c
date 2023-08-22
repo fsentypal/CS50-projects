@@ -38,8 +38,8 @@ int main(void)
 // Set up compute_score
 int compute_score(string word)
 {
-   // Set score to zero
-   int score = 0;
+    // Set score to zero
+    int score = 0;
 
     // Set up for loop
     for (int i = 0, n = strlen(word); i < n; i++)
