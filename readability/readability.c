@@ -2,73 +2,59 @@
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
-
-int count_letters(string text);
-int count_words(string text);
-int count_sentences(string text);
+#include <ctype.h>
 
 int main(void)
 {
+    //Ask user for text
     string text = get_string("Text: ");
 
-    int letters = count_letters(text);
-    int words = count_words(text);
-    int sentences = count_sentences(text);
+    //Set counter
+    int letters = 0;
+    int words = 1;
+    int sentences = 0;
 
-    float L = (float) letters / words * 100;
-    float S = (float) sentences / words * 100;
+    for (int i = 0; i < strlen(text); i++)
+    {
+        //Loop to check for letters, words, and sentences
+        if (isalpha(text[i]))
+        {
+            letters++;
+        }
 
+        else if (text[i] == ' ')
+        {
+            words++;
+        }
+
+        else if (text[i] == '.' || text[i] == '?' || text[i] == '!')
+        {
+            sentences++;
+        }
+    }
+
+    //Define L and S according to given formula
+    float L = (float) letters / (float) words * 100;
+    float S = (float) sentences / (float) words * 100;
+
+    //Use formula to calculate grade level
     int index = round(0.0588 * L - 0.296 * S - 15.8);
 
     if (index < 1)
     {
+        //If the index is less than the calculated Grade 1 print "Before Grade 1"
         printf("Before Grade 1\n");
     }
-    else if (index >= 16)
+
+    else if (index > 16)
     {
+        //If the index is greater than the calculated Grade 16 print "Grade 16+"
         printf("Grade 16+\n");
     }
+
     else
     {
+        //If the index is in between 1 and 16 print "Grade %i"
         printf("Grade %i\n", index);
     }
-}
-
-int count_letters(string text)
-{
-    int count = 0;
-    for (int i = 0, n = strlen(text); i < n; i++)
-    {
-        if ((text[i] >= 'a' && text[i] <= 'z') || (text[i] >= 'A' && text[i] <= 'Z'))
-        {
-            count++;
-        }
-    }
-    return count;
-}
-
-int count_words(string text)
-{
-    int count = 1; // Assuming the text starts with a word
-    for (int i = 0, n = strlen(text); i < n; i++)
-    {
-        if (text[i] == ' ')
-        {
-            count++;
-        }
-    }
-    return count;
-}
-
-int count_sentences(string text)
-{
-    int count = 0;
-    for (int i = 0, n = strlen(text); i < n; i++)
-    {
-        if (text[i] == '.' || text[i] == '!' || text[i] == '?')
-        {
-            count++;
-        }
-    }
-    return count;
 }
