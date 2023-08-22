@@ -9,21 +9,21 @@ char rotate(char c, int key);
 
 int main(int argc, string argv[])
 {
-    // Check for command-line arguments
+    // check for arguments
     if (argc != 2 || !only_digits(argv[1]))
     {
         printf("Usage: ./caesar key\n");
         return 1;
     }
 
-    // Convert key to integer
+    // set up function to convert key to integer
     int key = atoi(argv[1]);
 
-    // Prompt user for plaintext
+    // ask user for plaintext
     string plaintext = get_string("plaintext: ");
     printf("ciphertext: ");
 
-    // Encrypt and print ciphertext
+    // encrypt and print 
     for (int i = 0, n = strlen(plaintext); i < n; i++)
     {
         printf("%c", rotate(plaintext[i], key));
