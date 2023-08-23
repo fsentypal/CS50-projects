@@ -144,12 +144,14 @@ bool vote(int voter, int rank, string name)
 // Tabulate votes for non-eliminated candidates
 void tabulate(void)
 {
-    
+    // loop through voters
     for (int i = 0; i < voter_count; i++)
     {
+        // check preference
         for (int j = 0; j < candidate_count; j++)
         {
             int candidate_index = preferences[i][j];
+            // if not elim, update vote count
             if (!candidates[candidate_index].eliminated)
             {
                 candidates[candidate_index].votes++;
@@ -162,6 +164,7 @@ void tabulate(void)
 // Print the winner of the election, if there is one
 bool print_winner(void)
 {
+    // calc majority threshold
     int majority = voter_count / 2;
     for (int i = 0; i < candidate_count; i++)
     {
