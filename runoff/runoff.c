@@ -169,7 +169,7 @@ bool print_winner(void)
     // loop through cadidates
     for (int i = 0; i < candidate_count; i++)
     {
-        // 
+        // if candidate has more votes than threshold they win
         if (candidates[i].votes > majority)
         {
             printf("%s\n", candidates[i].name);
@@ -183,8 +183,10 @@ bool print_winner(void)
 int find_min(void)
 {
     int min_votes = voter_count;
+    // loop through candidates
     for (int i = 0; i < candidate_count; i++)
     {
+        // if remaining cadidate has 
         if (!candidates[i].eliminated && candidates[i].votes < min_votes)
         {
             min_votes = candidates[i].votes;
