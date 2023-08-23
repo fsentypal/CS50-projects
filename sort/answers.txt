@@ -2,9 +2,9 @@ sort1 uses: bubble sort
 
 How do you know?: As the list grows the time it takes for random and reversed lists to sort also grows. When the list is already sorted bubble sort can predict that the rest of the list will be sorted and will end early, which is shown in the times.
 
-sort2 uses: TODO
+sort2 uses: merge sort
 
-How do you know?: TODO
+How do you know?: merge sort has pretty consistent times to sort and it can be seen by the times for all the lists that they are pretty similar and consistent regardless of the type of list.
 
 sort3 uses: TODO
 
