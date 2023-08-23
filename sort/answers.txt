@@ -8,5 +8,5 @@ How do you know?: merge sort has pretty consistent times to sort and it can be s
 
 sort3 uses: selection sort
 
-How do you know?: sort3 is the same as sort1. As the list grows the time it takes for random and reversed lists to sort also grows. When the list is already sorted bubble sort can predict that the rest of the list will be sorted and will end early, which is shown in the times.
+How do you know?: As the list grows the time it takes for all lists to sort also grows since even if the list is sorted selection sort has to go through the sorting.
 
