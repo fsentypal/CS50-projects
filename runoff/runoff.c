@@ -127,10 +127,13 @@ int main(int argc, string argv[])
 // Record preference if vote is valid
 bool vote(int voter, int rank, string name)
 {
+    // loop through candidates
     for (int i = 0; i < candidate_count; i++)
     {
+        // check if candidates name matches given name
         if (strcmp(name, candidates[i].name) == 0)
         {
+            // update reference
             preferences[voter][rank] = i;
             return true;
         }
@@ -141,6 +144,7 @@ bool vote(int voter, int rank, string name)
 // Tabulate votes for non-eliminated candidates
 void tabulate(void)
 {
+    
     for (int i = 0; i < voter_count; i++)
     {
         for (int j = 0; j < candidate_count; j++)
