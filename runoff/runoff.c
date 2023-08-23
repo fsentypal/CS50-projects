@@ -166,8 +166,10 @@ bool print_winner(void)
 {
     // calc majority threshold
     int majority = voter_count / 2;
+    // loop through cadidates
     for (int i = 0; i < candidate_count; i++)
     {
+        // 
         if (candidates[i].votes > majority)
         {
             printf("%s\n", candidates[i].name);
