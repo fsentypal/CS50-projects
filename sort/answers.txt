@@ -1,6 +1,6 @@
 sort1 uses: bubble sort
 
-How do you know?: 
+How do you know?: As the list grows the time it takes for random and reversed lists to sort also grows. When the list is already sorted bubble sort can predict that the rest of the list will be sorted and will end early, which is shown in the times.
 
 sort2 uses: TODO
 
