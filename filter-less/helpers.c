@@ -8,7 +8,7 @@ void grayscale(int height, int width, RGBTRIPLE image[height][width])
     // iterate over each pixel in the image
     for (int i = 0; i < height; i++)
     {
-        for (RGBTRIPLE * pixel = image[i]; pixel < image[i] + width; pixel++)
+        for (RGBTRIPLE *pixel = image[i]; pixel < image[i] + width; pixel++)
         {
             // calc the ave of the values
             BYTE average = round((pixel->rgbtRed + pixel->rgbtGreen + pixel->rgbtBlue) / 3.0);
@@ -27,7 +27,7 @@ void sepia(int height, int width, RGBTRIPLE image[height][width])
     // iterate over each pixel in the image
     for (int i = 0; i < height; i++)
     {
-        for (RGBTRIPLE * pixel = image[i]; pixel < image[i] + width; pixel++)
+        for (RGBTRIPLE *pixel = image[i]; pixel < image[i] + width; pixel++)
         {
             // store the original values
             int originalRed = pixel->rgbtRed;
@@ -53,8 +53,8 @@ void reflect(int height, int width, RGBTRIPLE image[height][width])
     // iterate over each row
     for (int i = 0; i < height; i++)
     {
-        RGBTRIPLE* start = image[i];
-        RGBTRIPLE* end = image[i] + width - 1;
+        RGBTRIPLE *start = image[i];
+        RGBTRIPLE *end = image[i] + width - 1;
 
         // reflect the pixels by swapping pixels
         while (start < end)
@@ -86,7 +86,7 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
     // iterate over each pixel in the image
     for (int i = 0; i < height; i++)
     {
-        for (RGBTRIPLE* pixel = image[i]; pixel < image[i] + width; pixel++)
+        for (RGBTRIPLE *pixel = image[i]; pixel < image[i] + width; pixel++)
         {
             int sumRed = 0, sumGreen = 0, sumBlue = 0, count = 0;
 
@@ -98,7 +98,7 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
                     // check if the pixels around the pixel is in the boundaries
                     if (i + k >= 0 && i + k < height && pixel + l >= image[i] && pixel + l < image[i] + width)
                     {
-                        RGBTRIPLE* neighbor = (copy[i + k] + (pixel - image[i]) + l);
+                        RGBTRIPLE *neighbor = (copy[i + k] + (pixel - image[i]) + l);
                         sumRed += neighbor->rgbtRed;
                         sumGreen += neighbor->rgbtGreen;
                         sumBlue += neighbor->rgbtBlue;
