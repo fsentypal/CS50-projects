@@ -8,7 +8,7 @@ void grayscale(int height, int width, RGBTRIPLE image[height][width])
     // iterate over each pixel in the image
     for (int i = 0; i < height; i++)
     {
-        for (RGBTRIPLE* pixel = image[i]; pixel < image[i] + width; pixel++)
+        for (RGBTRIPLE * pixel = image[i]; pixel < image[i] + width; pixel++)
         {
             // calc the ave of the values
             BYTE average = round((pixel->rgbtRed + pixel->rgbtGreen + pixel->rgbtBlue) / 3.0);
@@ -27,7 +27,7 @@ void sepia(int height, int width, RGBTRIPLE image[height][width])
     // iterate over each pixel in the image
     for (int i = 0; i < height; i++)
     {
-        for (RGBTRIPLE* pixel = image[i]; pixel < image[i] + width; pixel++)
+        for (RGBTRIPLE * pixel = image[i]; pixel < image[i] + width; pixel++)
         {
             // store the original values
             int originalRed = pixel->rgbtRed;
