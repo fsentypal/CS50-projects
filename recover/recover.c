@@ -25,60 +25,46 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    BYTE byte;
-    int byteCount = 0;
+    BYTE buffer[BLOCK_SIZE];
     int fileNumber = 0;
     FILE *img = NULL;
     char filename[8];
+    // flag to check if i'm currently writing to a JPEG
+    int writingJPEG = 0;
 
-    // read the file by byte
-    while (fread(&byte, 1, 1, file))
+    // read the file in blocks
+    while (fread(buffer, BLOCK_SIZE, 1, file))
     {
-        byteCount++;
-
         // check for signature
-        if (byteCount >= 4 && byte == 0xff)
+        if (buffer[0] == 0xff && buffer[1] == 0xd8 && buffer[2] == 0xff && (buffer[3] & 0xf0) == 0xe0)
         {
-            // move back 4 bytes to check signature
-            fseek(file, -4, SEEK_CUR);
-            BYTE signature[4];
-            fread(signature, 1, 4, file);
-
-            if (signature[0] == 0xff && signature[1] == 0xd8 && signature[2] == 0xff && (signature[3] & 0xf0) == 0xe0)
+            // If a JPEG is already open, close it
+            if (writingJPEG)
             {
-                // if a JPEG is already open, close it
-                if (img != NULL)
-                {
-                    fclose(img);
-                }
-
-                // create a new JPEG
-                sprintf(filename, "%03i.jpg", fileNumber++);
-                img = fopen(filename, "w");
-                if (img == NULL)
-                {
-                    printf("Could not create %s.\n", filename);
-                    return 1;
-                }
-
-                // reset byte count
-                byteCount = 0;
+                fclose(img);
             }
-            else
+
+            // create new JPEG
+            sprintf(filename, "%03i.jpg", fileNumber++);
+            img = fopen(filename, "w");
+            if (img == NULL)
             {
-                // move back to where I was
-                fseek(file, -3, SEEK_CUR);
+                printf("Could not create %s.\n", filename);
+                return 1;
             }
+
+            // set the flag to show i'm writing to a JPEG
+            writingJPEG = 1;
         }
 
         // if a JPEG is open, write to it
-        if (img != NULL)
+        if (writingJPEG)
         {
-            fwrite(&byte, 1, 1, img);
+            fwrite(buffer, BLOCK_SIZE, 1, img);
         }
     }
 
-    // close any lasting files
+    // close any remaining files
     if (img != NULL)
     {
         fclose(img);
