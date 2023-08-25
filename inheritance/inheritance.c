@@ -54,10 +54,6 @@ person *create_family(int generations)
         person *parent0 = create_family(generations - 1);
         person *parent1 = create_family(generations - 1);
 
-        // create two new parents for current person
-        person *parent0 = create_family(generations - 1);
-        person *parent1 = create_family(generations - 1);
-
         // set parent pointers
         new_person->parents[0] = parent0;
         new_person->parents[1] = parent1;
