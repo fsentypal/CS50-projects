@@ -22,6 +22,7 @@ const unsigned int N = 26;
 // Hash table
 node *table[N];
 
+// keeping track of number of words loaded
 unsigned int word_count = 0;
 
 // Returns true if word is in dictionary, else false
