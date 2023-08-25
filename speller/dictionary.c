@@ -19,11 +19,11 @@ const unsigned int N = 26;
 // Hash table
 node *table[N];
 
-
 // Returns true if word is in dictionary, else false
 bool check(const char *word)
 {
-
+    // TODO
+    return false;
 }
 
 // Hashes word to a number
