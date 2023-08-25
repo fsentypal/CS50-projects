@@ -16,7 +16,7 @@ typedef struct node
 }
 node;
 
-// TODO: Choose number of buckets in hash table
+// number of buckets in hash table
 const unsigned int N = 26;
 
 // Hash table
@@ -32,15 +32,19 @@ bool check(const char *word)
     int len = strlen(word);
     for (int i = 0; i < len; i++)
     {
+        // convert to lowercase
         temp[i] = tolower(word[i]);
     }
     temp[len] = '\0';
 
+    // get hash index
     int index = hash(temp);
     node *cursor = table[index];
 
+    // go through the list at the hash index
     while (cursor != NULL)
     {
+        // if the word is found return true
         if (strcmp(temp, cursor->word) == 0)
         {
             return true;
@@ -53,7 +57,7 @@ bool check(const char *word)
 // Hashes word to a number
 unsigned int hash(const char *word)
 {
-    // TODO: Improve this hash function
+    // mpas first letter of the word to an index
     return tolower(word[0]) - 'a';
 }
 
@@ -67,8 +71,10 @@ bool load(const char *dictionary)
     }
 
     char word[LENGTH + 1];
+    // read each word from the dict
     while (fscanf(file, "%s", word) != EOF)
     {
+        // save memory for a node
         node *new_node = malloc(sizeof(node));
         if (new_node == NULL)
         {
@@ -76,6 +82,7 @@ bool load(const char *dictionary)
         }
         strcpy(new_node->word, word);
         int index = hash(word);
+        // insert new node at start of list
         new_node->next = table[index];
         table[index] = new_node;
         word_count++;
@@ -88,16 +95,17 @@ bool load(const char *dictionary)
 // Returns number of words in dictionary if loaded, else 0 if not yet loaded
 unsigned int size(void)
 {
-    // TODO
    return word_count;
 }
 
 // Unloads dictionary from memory, returning true if successful, else false
 bool unload(void)
 {
+    // go through each bucket
     for (int i = 0; i < N; i++)
     {
         node *cursor = table[i];
+        // clear each node in the list for the bucket
         while (cursor != NULL)
         {
             node *temp = cursor;
