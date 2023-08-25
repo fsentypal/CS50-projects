@@ -19,10 +19,33 @@ const unsigned int N = 26;
 // Hash table
 node *table[N];
 
+// Variable to keep track of the number of words loaded into the dictionary
+unsigned int word_count = 0;
+
 // Returns true if word is in dictionary, else false
 bool check(const char *word)
 {
-    // TODO
+   // Create a temporary array to store the lowercase version of the word
+    char temp[strlen(word) + 1];
+    strcpy(temp, word);
+    for (int i = 0; temp[i]; i++)
+    {
+        temp[i] = tolower(temp[i]);
+    }
+
+    // Get the index of the bucket where the word should be
+    int index = hash(temp);
+    node *cursor = table[index];
+
+    // Traverse the linked list in the bucket to find the word
+    while (cursor != NULL)
+    {
+        if (strcmp(cursor->word, temp) == 0)
+        {
+            return true;
+        }
+        cursor = cursor->next;
+    }
     return false;
 }
 
