@@ -52,8 +52,12 @@ bool check(const char *word)
 // Hashes word to a number
 unsigned int hash(const char *word)
 {
-    // TODO: Improve this hash function
-    return toupper(word[0]) - 'A';
+    unsigned int hash_value = 0;
+    for (int i = 0; word[i] != '\0'; i++)
+    {
+        hash_value = (hash_value << 2) ^ tolower(word[i]);
+    }
+    return hash_value % N;
 }
 
 // Loads dictionary into memory, returning true if successful, else false
