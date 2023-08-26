@@ -51,7 +51,7 @@ AND flights.id IN (
     WHERE passport_number IN (
         SELECT passport_number
         FROM people
-        WHERE name = "Your thief name here"
+        WHERE name = "Bruce"
     )
 );
 
@@ -67,6 +67,6 @@ WHERE phone_number IN (
     AND caller IN (
         SELECT phone_number
         FROM people
-        WHERE name = "Place your thief name here"
+        WHERE name = "Bruce"
     )
 );
