@@ -1,3 +1,4 @@
+-- The Thief:
 WITH SuspiciousActivities AS (
     SELECT license_plate
     FROM bakery_security_logs
@@ -38,6 +39,7 @@ AND id IN (
 AND passport_number IN (SELECT * FROM SuspiciousFlights);
 
 
+-- The Destination
 SELECT DISTINCT airports.city
 FROM flights
 JOIN airports ON flights.destination_airport_id = airports.id
@@ -54,6 +56,7 @@ AND flights.id IN (
 );
 
 
+-- The Accomplice:
 SELECT name
 FROM people
 WHERE phone_number IN (
