@@ -1,9 +1,11 @@
-def main():
-    # Ask user for their name
-    name = input("What is your name?\n")
+#include <cs50.h>
+#include <stdio.h>
 
-    # Display user's answer
-    print(f"hello, {name}")
+int main(void)
+{
+    // Ask user for their name
+    string name = get_string("What's your name? \n");
 
-if __name__ == "__main__":
-    main()
+    // Display user's answer
+    printf("hello, %s\n", name);
+}
