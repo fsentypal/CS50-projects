@@ -24,7 +24,6 @@ def main():
     for str_sequence in str_list:
         str_counts[str_sequence] = longest_match(sequence, str_sequence)
 
-
     # compare the STR counts against the database
     for person in database:
         match = True
