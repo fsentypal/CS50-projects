@@ -1,67 +1,22 @@
-WITH SuspiciousActivities AS (
-    SELECT license_plate
-    FROM bakery_security_logs
-    WHERE year = 2021 AND month = 7 AND day = 28 AND hour = 10
-    AND minute BETWEEN 15 AND 25
-    AND activity = "exit"
-),
-SuspiciousCalls AS (
-    SELECT caller
-    FROM phone_calls
-    WHERE year = 2021 AND month = 7 AND day = 28
-    AND duration < 60
-),
-SuspiciousTransactions AS (
-    SELECT account_number
-    FROM atm_transactions
-    WHERE year = 2021 AND month = 7 AND day = 28
-),
-SuspiciousFlights AS (
-    SELECT passengers.passport_number
-    FROM passengers
-    JOIN flights ON passengers.flight_id = flights.id
-    WHERE flights.year = 2021 AND flights.month = 7 AND flights.day = 29
-    AND flights.hour = 8  AND flights.minute = 20
-)
+SELECT p.name
+FROM people p
+JOIN interviews i ON p.id = i.person_id
+WHERE i.year = 2021 AND i.month = 7 AND i.day = 28;
 
-SELECT name
-FROM people
-WHERE license_plate IN (SELECT * FROM SuspiciousActivities)
-AND phone_number IN (SELECT * FROM SuspiciousCalls)
-AND id IN (
-    SELECT person_id
-    FROM bank_accounts
-    WHERE account_number IN (SELECT * FROM SuspiciousTransactions)
-)
-AND passport_number IN (SELECT * FROM SuspiciousFlights);
+SELECT a.city
+FROM airports a
+JOIN flights f ON a.id = f.destination_airport_id
+JOIN passengers pas ON f.id = pas.flight_id
+JOIN people p ON p.passport_number = pas.passport_number
+WHERE f.year = 2021 AND f.month = 7 AND f.day = 29 AND f.hour = 8 AND f.minute = 20
+AND p.name = "Bruce";  -- Replace "Bruce" with the name deduced from the previous query
 
-
-SELECT DISTINCT airports.city
-FROM flights
-JOIN airports ON flights.destination_airport_id = airports.id
-WHERE flights.year = 2021 AND flights.month = 7 AND flights.day = 29
-AND flights.hour = 8  AND flights.minute = 20
-AND flights.id IN (
-    SELECT flight_id
-    FROM passengers
-    WHERE passport_number IN (
-        SELECT passport_number
-        FROM people
-        WHERE name = "Bruce"
-    )
-);
-
-
-SELECT name
-FROM people
-WHERE phone_number IN (
-    SELECT receiver
-    FROM phone_calls
-    WHERE year = 2021 AND month = 7 AND day = 28
-    AND duration < 60
-    AND caller IN (
-        SELECT phone_number
-        FROM people
-        WHERE name = "Bruce"
-    )
-);
+SELECT p2.name
+FROM people p1
+JOIN passengers pas1 ON p1.passport_number = pas1.passport_number
+JOIN flights f1 ON pas1.flight_id = f1.id
+JOIN passengers pas2 ON f1.id = pas2.flight_id
+JOIN people p2 ON pas2.passport_number = p2.passport_number
+WHERE f1.year = 2021 AND f1.month = 7 AND f1.day = 29 AND f1.hour = 8 AND f1.minute = 20
+AND p1.name = "Bruce"  -- Replace "Bruce" with the name deduced from the first query
+AND p1.name != p2.name;
