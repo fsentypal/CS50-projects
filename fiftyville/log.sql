@@ -1,7 +1,7 @@
 SELECT p.name
 FROM people p
-JOIN interviews i ON p.id = i.person_id
-WHERE i.year = 2021 AND i.month = 7 AND i.day = 28;
+JOIN atm_transactions a ON p.id = a.account_number
+WHERE a.year = 2021 AND a.month = 7 AND a.day = 28;
 
 SELECT a.city
 FROM airports a
