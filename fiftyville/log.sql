@@ -1,7 +1,15 @@
 SELECT p.name
 FROM people p
-JOIN atm_transactions a ON p.id = a.account_number
-WHERE a.year = 2021 AND a.month = 7 AND a.day = 28;
+WHERE EXISTS (
+    SELECT 1 FROM bakery_security_logs b
+    WHERE p.license_plate = b.license_plate
+    AND b.year = 2021 AND b.month = 7 AND b.day = 28 AND b.hour = 10 AND b.minute BETWEEN 15 AND 25 AND b.activity = "exit"
+)
+AND EXISTS (
+    SELECT 1 FROM phone_calls ph
+    WHERE p.phone_number = ph.caller
+    AND ph.year = 2021 AND ph.month = 7 AND ph.day = 28 AND ph.duration < 60
+);
 
 SELECT a.city
 FROM airports a
