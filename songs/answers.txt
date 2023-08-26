@@ -5,4 +5,4 @@ I can characterize a listener's audio aura by looking at certain aspect of the s
 
 Hypothesize about why the way you’ve calculated this aura might not be very representative of the listener. What better ways of calculating this aura would you propose?
 
-It could not be very representative because we are basing it off of only a few metrics. 
+It could not be very representative because we are basing it off of only a few metrics. A better way would either be implementing more metrics or asking the user their preference before hand. 
