@@ -21,14 +21,14 @@ WHERE EXISTS (
     AND f.year = 2021 AND f.month = 7 AND f.day = 29 AND f.hour = 8 AND f.minute = 20
     AND EXISTS (
         SELECT 1 FROM people p
-        WHERE p.passport_number = pas.passport_number AND p.name = "Sofia"
+        WHERE p.passport_number = pas.passport_number AND p.name = "Bruce"
     )
 );
 
 
 SELECT p2.name
 FROM people p1, people p2, phone_calls ph
-WHERE p1.name = "Sofia"
+WHERE p1.name = "Bruce"
 AND p1.phone_number = ph.caller
 AND p2.phone_number = ph.receiver
 AND ph.year = 2021 AND ph.month = 7 AND ph.day = 28 AND ph.duration < 60
