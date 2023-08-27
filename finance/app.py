@@ -21,6 +21,8 @@ Session(app)
 db = SQL("sqlite:///finance.db")
 
 # Run this function after each request to ensure responses aren't cached
+
+
 @app.after_request
 def after_request(response):
     response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
@@ -29,11 +31,14 @@ def after_request(response):
     return response
 
 # Route to show portfolio of stocks
+
+
 @app.route("/")
 @login_required
 def index():
     # Fetch user's stocks from the transactions table
-    stocks = db.execute("SELECT symbol, SUM(shares) as total_shares FROM transactions WHERE user_id = ? GROUP BY symbol HAVING total_shares > 0", session["user_id"])
+    stocks = db.execute(
+        "SELECT symbol, SUM(shares) as total_shares FROM transactions WHERE user_id = ? GROUP BY symbol HAVING total_shares > 0", session["user_id"])
 
     # Get current prices and calculate total value for each stock
     for stock in stocks:
@@ -48,6 +53,8 @@ def index():
     return render_template("index.html", stocks=stocks, cash=cash)
 
 # Route to buy shares of stock
+
+
 @app.route("/buy", methods=["GET", "POST"])
 @login_required
 def buy():
@@ -79,13 +86,16 @@ def buy():
 
         # Update user's cash and add transaction to transactions table
         db.execute("UPDATE users SET cash = cash - ? WHERE id = ?", cost, session["user_id"])
-        db.execute("INSERT INTO transactions (user_id, symbol, shares, price) VALUES (?, ?, ?, ?)", session["user_id"], symbol, shares, stock["price"])
+        db.execute("INSERT INTO transactions (user_id, symbol, shares, price) VALUES (?, ?, ?, ?)",
+                   session["user_id"], symbol, shares, stock["price"])
 
         return redirect("/")
     else:
         return render_template("buy.html")
 
 # Route to show history of transactions
+
+
 @app.route("/history")
 @login_required
 def history():
@@ -93,6 +103,8 @@ def history():
     return render_template("history.html", transactions=transactions)
 
 # Route to log user in
+
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     session.clear()
@@ -113,12 +125,16 @@ def login():
         return render_template("login.html")
 
 # Route to log user out
+
+
 @app.route("/logout")
 def logout():
     session.clear()
     return redirect("/")
 
 # Route to get stock quote
+
+
 @app.route("/quote", methods=["GET", "POST"])
 @login_required
 def quote():
@@ -133,6 +149,8 @@ def quote():
         return render_template("quote.html")
 
 # Route to register user
+
+
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
@@ -163,6 +181,8 @@ def register():
         return render_template("register.html")
 
 # Route to sell shares of stock
+
+
 @app.route("/sell", methods=["GET", "POST"])
 @login_required
 def sell():
@@ -174,14 +194,16 @@ def sell():
         if not stock:
             return apology("Invalid stock symbol")
 
-        rows = db.execute("SELECT SUM(shares) as total_shares FROM transactions WHERE user_id = ? AND symbol = ?", session["user_id"], symbol)
+        rows = db.execute("SELECT SUM(shares) as total_shares FROM transactions WHERE user_id = ? AND symbol = ?",
+                          session["user_id"], symbol)
         if len(rows) != 1 or rows[0]["total_shares"] < shares_to_sell:
             return apology("Not enough shares")
 
         revenue = stock["price"] * shares_to_sell
 
         db.execute("UPDATE users SET cash = cash + ? WHERE id = ?", revenue, session["user_id"])
-        db.execute("INSERT INTO transactions (user_id, symbol, shares, price) VALUES (?, ?, ?, ?)", session["user_id"], symbol, -shares_to_sell, stock["price"])
+        db.execute("INSERT INTO transactions (user_id, symbol, shares, price) VALUES (?, ?, ?, ?)",
+                   session["user_id"], symbol, -shares_to_sell, stock["price"])
 
         return redirect("/")
     else:
