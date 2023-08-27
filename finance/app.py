@@ -155,14 +155,6 @@ def register():
         password = request.form.get("password")
         confirmation = request.form.get("confirmation")
 
-        # Password validation
-        if not re.search("[a-zA-Z]", password):
-            return apology("Password must contain at least one letter")
-        if not re.search("[0-9]", password):
-            return apology("Password must contain at least one number")
-        if not re.search("[!@#$%^&*(),.?\":{}|<>]", password):
-            return apology("Password must contain at least one special symbol")
-
         if not username:
             return apology("Must provide username")
         elif not password:
@@ -170,10 +162,16 @@ def register():
         elif password != confirmation:
             return apology("Passwords must match")
 
+        # Check if username already exists
+        existing_user = db.execute("SELECT * FROM users WHERE username = ?", username)
+        if existing_user:
+            return apology("Username already exists")
+
         hashed_password = generate_password_hash(password)
         result = db.execute("INSERT INTO users (username, hash) VALUES (?, ?)", username, hashed_password)
+
         if not result:
-            return apology("Username already exists")
+            return apology("Registration error")
 
         session["user_id"] = result
         return redirect("/")
