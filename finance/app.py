@@ -35,8 +35,18 @@ def after_request(response):
 @login_required
 def index():
     """Show portfolio of stocks"""
-    return apology("TODO")
+    stocks = db.execute("SELECT symbol, SUM(shares) as total_shares FROM transactions WHERE user_id = ? GROUP BY symbol HAVING total_shares > 0", session["user_id"])
 
+    # Get current prices and calculate total value for each stock
+    for stock in stocks:
+        current_stock = lookup(stock["symbol"])
+        stock["price"] = current_stock["price"]
+        stock["total_value"] = stock["price"] * stock["total_shares"]
+
+    # Get user's cash balance
+    cash = db.execute("SELECT cash FROM users WHERE id = ?", session["user_id"])[0]["cash"]
+
+    return render_template("index.html", stocks=stocks, cash=cash)
 
 @app.route("/buy", methods=["GET", "POST"])
 @login_required
@@ -69,8 +79,10 @@ def buy():
 @app.route("/history")
 @login_required
 def history():
+    def history():
     """Show history of transactions"""
-    return apology("TODO")
+    transactions = db.execute("SELECT * FROM transactions WHERE user_id = ?", session["user_id"])
+    return render_template("history.html", transactions=transactions)
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -165,4 +177,31 @@ def register():
 @login_required
 def sell():
     """Sell shares of stock"""
-    return apology("TODO")
+    if request.method == "POST":
+        symbol = request.form.get("symbol")
+        shares_to_sell = int(request.form.get("shares"))
+        stock = lookup(symbol)
+
+        if not stock:
+            return apology("invalid stock symbol")
+
+        # Check if user owns the stock and has enough shares to sell
+        rows = db.execute("SELECT SUM(shares) as total_shares FROM transactions WHERE user_id = ? AND symbol = ?", session["user_id"], symbol)
+        if len(rows) != 1 or rows[0]["total_shares"] < shares_to_sell:
+            return apology("not enough shares")
+
+        # Calculate total revenue from selling
+        revenue = stock["price"] * shares_to_sell
+
+        # Update user's cash
+        db.execute("UPDATE users SET cash = cash + ? WHERE id = ?", revenue, session["user_id"])
+
+        # Insert transaction into the transactions table with negative shares to indicate a sale
+        db.execute("INSERT INTO transactions (user_id, symbol, shares, price) VALUES (?, ?, ?, ?)", session["user_id"], symbol, -shares_to_sell, stock["price"])
+
+        return redirect("/")
+
+    else:
+        # Get the stocks the user owns to populate the dropdown in the sell form
+        stocks = db.execute("SELECT DISTINCT symbol FROM transactions WHERE user_id = ?", session["user_id"])
+        return render_template("sell.html", stocks=stocks)
