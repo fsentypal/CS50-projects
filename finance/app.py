@@ -6,6 +6,7 @@ from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from helpers import apology, login_required, lookup, usd
+import re
 
 # Configure application
 app = Flask(__name__)
@@ -79,7 +80,6 @@ def buy():
 @app.route("/history")
 @login_required
 def history():
-    def history():
     """Show history of transactions"""
     transactions = db.execute("SELECT * FROM transactions WHERE user_id = ?", session["user_id"])
     return render_template("history.html", transactions=transactions)
@@ -155,6 +155,14 @@ def register():
         password = request.form.get("password")
         confirmation = request.form.get("confirmation")
 
+        # Password validation
+        if not re.search("[a-zA-Z]", password):
+            return apology("Password must contain at least one letter")
+        if not re.search("[0-9]", password):
+            return apology("Password must contain at least one number")
+        if not re.search("[!@#$%^&*(),.?\":{}|<>]", password):
+            return apology("Password must contain at least one special symbol")
+
         if not username:
             return apology("Must provide username")
         elif not password:
@@ -171,7 +179,6 @@ def register():
         return redirect("/")
     else:
         return render_template("register.html")
-
 
 @app.route("/sell", methods=["GET", "POST"])
 @login_required
