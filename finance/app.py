@@ -55,11 +55,16 @@ def buy():
     """Buy shares of stock"""
     if request.method == "POST":
         symbol = request.form.get("symbol")
-        shares = int(request.form.get("shares"))
+        shares = float(request.form.get("shares"))
         stock = lookup(symbol)
 
         if not stock:
             return apology("Invalid stock symbol")
+
+        if not shares.is_integer():
+            return apology("Shares must be a whole number")
+        shares = int(shares)  # Convert to integer for further processing
+
         if shares <= 0:
             return apology("Shares must be a positive integer")
 
