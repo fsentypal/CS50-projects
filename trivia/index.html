@@ -6,36 +6,35 @@
         <link href="styles.css" rel="stylesheet">
         <title>Trivia!</title>
         <script>
+            // checks answer for multiple-choice
             function checkAnswer(answer) {
-   // This function checks the answer for the multiple-choice question.
-function checkAnswer(answer) {
-    // Get the feedback paragraph for Part 1.
-    const feedback = document.getElementById('feedback1');
-    // Check if the provided answer is correct.
-    if (answer === 'nile') {
-        feedback.textContent = "Correct!";
-        feedback.style.color = "green";
-    } else {
-        feedback.textContent = "Incorrect";
-        feedback.style.color = "red";
-    }
-}
+                // get feedback paragraph for Part 1
+                const feedback = document.getElementById('feedback1');
+                // check if the answer is correct
+                if (answer === 'nile') {
+                    feedback.textContent = "Correct!";
+                    feedback.style.color = "green";
+                } else {
+                    feedback.textContent = "Incorrect";
+                    feedback.style.color = "red";
+                }
+            }
 
-// This function checks the answer for the free response question.
-function checkFreeResponse() {
-    // Get the user's answer from the input field and convert it to lowercase.
-    const answer = document.getElementById('freeResponseAnswer').value.trim().toLowerCase();
-    // Get the feedback paragraph for Part 2.
-    const feedback = document.getElementById('feedback2');
-    // Check if the provided answer is correct.
-    if (answer === 'canberra') {
-        feedback.textContent = "Correct!";
-        feedback.style.color = "green";
-    } else {
-        feedback.textContent = "Incorrect";
-        feedback.style.color = "red";
-    }
-}
+            // checks answer for the free response question
+            function checkFreeResponse() {
+                // get the answer from the input and convert it to lowercase
+                const answer = document.getElementById('freeResponseAnswer').value.trim().toLowerCase();
+                // get the feedback paragraph for Part 2
+                const feedback = document.getElementById('feedback2');
+                // check if the answer is correct
+                if (answer === 'canberra') {
+                    feedback.textContent = "Correct!";
+                    feedback.style.color = "green";
+                } else {
+                    feedback.textContent = "Incorrect";
+                    feedback.style.color = "red";
+                }
+            }
         </script>
     </head>
     <body>
@@ -47,28 +46,28 @@ function checkFreeResponse() {
             <div class="section">
                 <h2>Part 1: Multiple Choice </h2>
                 <hr>
-                <!-- Question for Part 1 -->
+                <!-- question for Part 1 -->
                 <h3>Which river is the longest?</h3>
-                <!-- Answer buttons. The onclick attribute calls the checkAnswer function with the respective answer. -->
+                <!-- answer buttons -->
                 <button onclick="checkAnswer('mississippi')">Mississippi River</button>
                 <button onclick="checkAnswer('amazon')">Amazon River</button>
                 <button onclick="checkAnswer('nile')">Nile River</button>
-                <!-- Feedback paragraph for Part 1 -->
+                <!-- feedback paragraph for Part 1 -->
                 <p id="feedback1"></p>
             </div>
 
             <div class="section">
                 <h2>Part 2: Free Response</h2>
                 <hr>
-                <!-- Question for Part 2 -->
+                <!-- question for Part 2 -->
                 <h3>What is the capital of Australia?</h3>
-                <!-- Input field for the user's answer -->
+                <!-- input field -->
                 <input type="text" id="freeResponseAnswer">
-                <!-- Button to confirm the answer. The onclick attribute calls the checkFreeResponse function. -->
+                <!-- button to confirm the answer -->
                 <button onclick="checkFreeResponse()">Confirm</button>
-                <!-- Feedback paragraph for Part 2 -->
+                <!-- feedback paragraph for Part 2 -->
                 <p id="feedback2"></p>
             </div>
         </div>
     </body>
-</html> 
+</html>
