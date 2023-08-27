@@ -6,7 +6,34 @@
         <link href="styles.css" rel="stylesheet">
         <title>Trivia!</title>
         <script>
-            // TODO: Add code to check answers to questions
+            function checkAnswer(answer) {
+    // Get the feedback paragraph for Part 1.
+    const feedback = document.getElementById('feedback1');
+    // Check if the provided answer is correct.
+    if (answer === 'mars') {
+        feedback.textContent = "Correct!";
+        feedback.style.color = "green";
+    } else {
+        feedback.textContent = "Incorrect";
+        feedback.style.color = "red";
+    }
+}
+
+// This function checks the answer for the free response question.
+function checkFreeResponse() {
+    // Get the user's answer from the input field and convert it to lowercase.
+    const answer = document.getElementById('freeResponseAnswer').value.trim().toLowerCase();
+    // Get the feedback paragraph for Part 2.
+    const feedback = document.getElementById('feedback2');
+    // Check if the provided answer is correct.
+    if (answer === 'paris') {
+        feedback.textContent = "Correct!";
+        feedback.style.color = "green";
+    } else {
+        feedback.textContent = "Incorrect";
+        feedback.style.color = "red";
+    }
+}
         </script>
     </head>
     <body>
@@ -18,13 +45,27 @@
             <div class="section">
                 <h2>Part 1: Multiple Choice </h2>
                 <hr>
-                <!-- TODO: Add multiple choice question here -->
+                <!-- Question for Part 1 -->
+                <h3>Which planet is known as the Red Planet?</h3>
+                <!-- Answer buttons. The onclick attribute calls the checkAnswer function with the respective answer. -->
+                <button onclick="checkAnswer('earth')">Earth</button>
+                <button onclick="checkAnswer('mars')">Mars</button>
+                <button onclick="checkAnswer('jupiter')">Jupiter</button>
+                <!-- Feedback paragraph for Part 1 -->
+                <p id="feedback1"></p>
             </div>
 
             <div class="section">
                 <h2>Part 2: Free Response</h2>
                 <hr>
-                <!-- TODO: Add free response question here -->
+                <!-- Question for Part 2 -->
+                <h3>What is the capital of France?</h3>
+                <!-- Input field for the user's answer -->
+                <input type="text" id="freeResponseAnswer">
+                <!-- Button to confirm the answer. The onclick attribute calls the checkFreeResponse function. -->
+                <button onclick="checkFreeResponse()">Confirm</button>
+                <!-- Feedback paragraph for Part 2 -->
+                <p id="feedback2"></p>
             </div>
         </div>
     </body>
