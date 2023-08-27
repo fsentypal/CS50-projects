@@ -7,10 +7,12 @@
         <title>Trivia!</title>
         <script>
             function checkAnswer(answer) {
+   // This function checks the answer for the multiple-choice question.
+function checkAnswer(answer) {
     // Get the feedback paragraph for Part 1.
     const feedback = document.getElementById('feedback1');
     // Check if the provided answer is correct.
-    if (answer === 'mars') {
+    if (answer === 'nile') {
         feedback.textContent = "Correct!";
         feedback.style.color = "green";
     } else {
@@ -26,7 +28,7 @@ function checkFreeResponse() {
     // Get the feedback paragraph for Part 2.
     const feedback = document.getElementById('feedback2');
     // Check if the provided answer is correct.
-    if (answer === 'paris') {
+    if (answer === 'canberra') {
         feedback.textContent = "Correct!";
         feedback.style.color = "green";
     } else {
@@ -69,4 +71,4 @@ function checkFreeResponse() {
             </div>
         </div>
     </body>
-</html>
+</html> 
