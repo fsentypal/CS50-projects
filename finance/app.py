@@ -42,7 +42,28 @@ def index():
 @login_required
 def buy():
     """Buy shares of stock"""
-    return apology("TODO")
+    if request.method == "POST":
+        symbol = request.form.get("symbol")
+        shares = int(request.form.get("shares"))
+        stock = lookup(symbol)
+
+        if not stock:
+            return apology("Invalid stock symbol")
+        if shares <= 0:
+            return apology("Shares must be a positive integer")
+
+        cost = stock["price"] * shares
+        user_cash = db.execute("SELECT cash FROM users WHERE id = ?", session["user_id"])[0]["cash"]
+
+        if user_cash < cost:
+            return apology("Not enough funds")
+
+        db.execute("UPDATE users SET cash = cash - ? WHERE id = ?", cost, session["user_id"])
+        db.execute("INSERT INTO transactions (user_id, symbol, shares, price) VALUES (?, ?, ?, ?)", session["user_id"], symbol, shares, stock["price"])
+
+        return redirect("/")
+    else:
+        return render_template("buy.html")
 
 
 @app.route("/history")
