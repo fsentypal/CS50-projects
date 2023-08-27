@@ -1,0 +1,20 @@
+/* ... existing styles ... */
+
+/* Styling for the navbar */
+.navbar {
+    margin-bottom: 20px;
+}
+
+/* Styling for the container */
+.container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling for the form */
+form {
+    max-width: 600px;
+    margin: 0 auto;
+}
